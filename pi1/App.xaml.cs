@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using pi1.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -29,13 +30,18 @@ namespace pi1
 		private void App_OnStartup(object sender, StartupEventArgs e)
 		{
 			var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-			mainWindow.Show();
+			var mwp = new MainWindowPresenter(
+				mainWindow,
+				new MainWindowVM(),
+				ServiceProvider.GetRequiredService<ICalculator>(),
+				ServiceProvider.GetRequiredService<IOperationsHistoryRepository>());
 
 		}
 
 		private void ConfigureServices(IServiceCollection services)
 		{
 			services.AddSingleton<ICalculator>(provider => new RPNCalculator());
+			services.AddSingleton<IOperationsHistoryRepository, OperationsHistoryMemoryRepository>();
 			services.AddSingleton<MainWindow>();
 		}
 	}

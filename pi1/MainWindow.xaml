@@ -20,8 +20,10 @@
 			<ColumnDefinition />
 			<ColumnDefinition />
 			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
-		<TextBlock x:Name="textBlock" Grid.Column="0" Grid.ColumnSpan="4"  FontSize="24"/>
+		<TextBlock x:Name="textBlock" Text="{Binding Expression, Mode=TwoWay}" Grid.Column="0" Grid.ColumnSpan="4"  FontSize="24"/>
 		<Button Grid.Column="0" Grid.Row="1" FontSize="20">1</Button>
 		<Button Grid.Column="1" Grid.Row="1" FontSize="20">2</Button>
 		<Button Grid.Column="2" Grid.Row="1" FontSize="20">3</Button>
@@ -41,6 +43,13 @@
 		<Button Grid.Column="1" Grid.Row="4" FontSize="20">0</Button>
 		<Button Grid.Column="2" Grid.Row="4" FontSize="20">)</Button>
 		<Button Grid.Column="3" Grid.Row="4" FontSize="20">/</Button>
-		<Button Grid.Column="4" Grid.Row="4" FontSize="20">=</Button>
+		<Button Command="{Binding CalculateCommand}" Grid.Column="4" Grid.Row="4" FontSize="20">=</Button>
+		<ListView Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="5" ItemsSource="{Binding OperationItems}">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Margin="1" Text="{Binding Path=Expression}"/>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
 	</Grid>
 </Window>
